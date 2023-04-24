@@ -12,8 +12,8 @@
  */
 public class Airport implements AirportInterface{
 
-	private int name; // Airport name
-	private int abbreviation; // Abbreviation of name
+	private String name; // Airport name
+	private String abbreviation; // Abbreviation of name
 	private int size; // Size of airport
 
 	/**
@@ -45,7 +45,7 @@ public class Airport implements AirportInterface{
 	 * @return name - name of airport
 	 */
 	@Override
-	public int getName(){
+	public String getName(){
 		return name;
 	}
 
@@ -55,7 +55,7 @@ public class Airport implements AirportInterface{
 	 * @return abbreviation - name abbreviatoin
 	 */
 	@Override
-	public int getAbrName(){
+	public String getAbrName(){
 		return abbreviation;
 	}
 
