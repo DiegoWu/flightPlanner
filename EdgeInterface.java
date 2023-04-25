@@ -1,5 +1,5 @@
 public interface EdgeInterface{
-	public Airport getPredecessor();
-	public Airport getSuccessor();
+	public AirportInterface getPredecessor();
+	public AirportInterface getSuccessor();
 	public int getWeight();
 }

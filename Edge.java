@@ -13,8 +13,8 @@
  */
 public class Edge implements EdgeInterface{
 
-	private Airport predecessor; // Airport of predecessor node
-	private Airport successor;  // Airport of successor node
+	private AirportInterface predecessor; // Airport of predecessor node
+	private AirportInterface successor;  // Airport of successor node
 	private int edgeWeight; // Weight of edge
 
 	/**
@@ -24,7 +24,7 @@ public class Edge implements EdgeInterface{
 	 * @param a2 - successor airport node
 	 * @param weight - weight of edge
 	 */
-	public Edge(Airport a1, Airport a2, int weight){
+	public Edge(AirportInterface a1, AirportInterface a2, int weight){
 		predecessor = a1;
 		successor = a2;
 		edgeWeight = weight;
@@ -36,7 +36,7 @@ public class Edge implements EdgeInterface{
 	 * @return predecessor - predecessor Airport node
 	 */
 	@Override
-	public Airport getPredecessor(){
+	public AirportInterface getPredecessor(){
 		return predecessor;
 	}
 
@@ -46,7 +46,7 @@ public class Edge implements EdgeInterface{
 	 * @return sucessor - successor Airport node
 	 */
 	@Override
-	public Airport getSuccessor(){
+	public AirportInterface getSuccessor(){
 		return successor;
 	}
 
