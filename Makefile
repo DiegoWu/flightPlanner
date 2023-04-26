@@ -4,5 +4,8 @@ runDataWranglerTests: DataWranglerTests.class
 DataWranglerTests.class: DataWranglerTests.java
 	javac -cp .:junit5.jar DataWranglerTests.java
 
+runDW: AirportDW.java EdgeDW.java FileReaderDW.java
+	javac AirportDW.java EdgeDW.java FileReaderDW.java
+
 clean:
 	rm *.class
