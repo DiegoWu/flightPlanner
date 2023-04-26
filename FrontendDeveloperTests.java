@@ -15,8 +15,8 @@ public class FrontendDeveloperTests extends JavaFXTester{
     super(FrontendFD.class);
   }
   /*
-  * testing that after clicking the start button, the path is displayed 
-  */
+   * testing that after clicking the start button, the path is displayed 
+   */
   @Test
   public void test1() {
     Text path= lookup("#path").query(); // lookup the node by ID
@@ -25,7 +25,10 @@ public class FrontendDeveloperTests extends JavaFXTester{
     assertEquals("Shortest path: a-> b-> c-> d", path.getText()); 
 
   }
-
+  /*
+   *
+   * testing that after clicking the start button, the time is displayed 
+   */
   @Test
   public void test2() {
     Text time= lookup("#time").query(); // lookup the node by ID
@@ -33,7 +36,10 @@ public class FrontendDeveloperTests extends JavaFXTester{
     clickOn("#temp"); // simulates mouse clicking
     assertEquals("total time: 0", time.getText()); 
   }
-
+  /*
+   *
+   * testing that after clicking the end button on a nonexist path, the path is displayed as nope 
+   */
   @Test
   public void test3() {
     Text path= lookup("#path").query(); // lookup the node by ID
@@ -42,7 +48,10 @@ public class FrontendDeveloperTests extends JavaFXTester{
     assertEquals("Shortest path: nope", path.getText()); 
 
   }
-  
+  /*
+   * testing that after clicking the start button, the availability is displayed
+   * 
+   */
   @Test 
   public void test4(){
     Text av= lookup("#av").query(); // lookup the node by ID
@@ -50,6 +59,10 @@ public class FrontendDeveloperTests extends JavaFXTester{
     clickOn("#temp"); // simulates mouse clicking
     assertEquals("direct flight availability: No", av.getText());
   }
+  /*
+   * testing that after clicking the end button on a nonexist path, the availability is displayed as nope
+   * 
+   */
   @Test 
   public void test5(){
     Text av= lookup("#av").query(); // lookup the node by ID
