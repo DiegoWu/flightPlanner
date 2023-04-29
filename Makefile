@@ -1,5 +1,5 @@
 
-runTests: FrontendDeveloperTests.class
+runFrontendDeveloperTests: FrontendDeveloperTests.class
 	java --module-path ./lib1 --add-modules javafx.controls --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED -jar junit5.jar -cp .:JavaFXTester.jar -c FrontendDeveloperTests
 
 FrontendDeveloperTests.class: FrontendDeveloperTests.java FrontendFD.class placeHolders.class
