@@ -1,0 +1,11 @@
+graph DWTest {
+
+	airport1 -- airport2 [label="1" distance=1];
+	airport2 -- airport3 [label="4" distance=4];
+	airport1 -- airport3 [label="5" distance=5];
+
+	airport1 [label=Airport1 size=548 abbreviation="a1"]
+	airport2 [label=Airport2 size=200 abbreviation="a2"]
+	airport3 [label=Airport3 size=623 abbreviation="a3"]
+
+}
