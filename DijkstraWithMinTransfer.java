@@ -11,32 +11,31 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DijkstraWithMinTransfer<NodeType, EdgeType extends Number> extends DijkstraGraph<AirportInterface, EdgeType>
-		implements DijkstraWithMinTransferInterface<AirportInterface, EdgeType> {
+  implements DijkstraWithMinTransferInterface<AirportInterface, EdgeType> {
 
-	private DijkstraGraph<AirportInterface, EdgeType> graph;
+  private DijkstraGraph<AirportInterface, EdgeType> graph;
+  public List<AirportInterface> ShortestPathData(AirportInterface st, AirportInterface end){
+    return this.graph.shortestPathData();
+  }
+  public DijkstraWithMinTransfer(DijkstraGraph<AirportInterface, EdgeType> graph) {
+    this.graph = graph;
+  }
 
-	public DijkstraWithMinTransfer(DijkstraGraph<AirportInterface, EdgeType> graph) {
-		this.graph = graph;
-	}
+  @Override
+  public int minTransfer(AirportInterface start, AirportInterface end) {
+    if(start.equals(end))
+      return 0;
+    return graph.shortestPathData(start, end).size();
+  }
 
-	@Override
-	public int minTransfer(AirportInterface start, AirportInterface end) {
-		if(start.equals(end))
-			return 0;
-		return graph.shortestPathData(start, end).size();
-	}
-
-	@Override
-	public List<AirportInterface> findAirportConnections(AirportInterface start, AirportInterface end) {
-		List<AirportInterface> list = new ArrayList<>();
-		Node startNode = new Node(start);
-		for(Edge edge : startNode.edgesLeaving)
-			list.add((AirportInterface) edge.successor);
-		return list;
-	}
-
-
-
+  @Override
+  public List<AirportInterface> findAirportConnections(AirportInterface start, AirportInterface end) {
+    List<AirportInterface> list = new ArrayList<>();
+    Node startNode = new Node(start);
+    for(Edge edge : startNode.edgesLeaving)
+      list.add((AirportInterface) edge.successor);
+    return list;
+  }
 
 }
 
