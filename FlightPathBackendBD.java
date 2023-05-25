@@ -9,11 +9,10 @@ public class FlightPathBackendBD implements FlightPathBackendInterface{
   
   private  DijkstraWithMinTransfer<AirportInterface, Integer> min;
 
-  public FlightPathBackendBD() throws FileNotFoundException{
+  public FlightPathBackendBD() {
     try{
       reader= new FileReaderDW(f);
     }catch(Exception e){
-      throw new FileNotFoundException(); 
     };
 
 

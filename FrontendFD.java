@@ -37,15 +37,14 @@ import javafx.scene.layout.StackPane;
 
 
 public class FrontendFD extends Application implements FrontendInterface {
-  
-  
+
+
   // private helper method for print
   private static <T> void print(T x) {
     System.out.println(x);
   }
 
-  // Scanner scan = new Scanner(System.in);
-  private FlightPathBackendInterface backend = new FlightPathBackendBD();
+  private FlightPathBackendInterface backend=  new FlightPathBackendBD();
 
   private AirportInterface st;
 
@@ -53,11 +52,12 @@ public class FrontendFD extends Application implements FrontendInterface {
 
 
   public Text displayAllShortestPaths() {
-    List<AirportInterface> paths = backend.shortestPaths(st, end);
 
     StringBuilder sb = new StringBuilder();
     Text pathsText;
     try {
+
+    List<AirportInterface> paths = backend.shortestPaths(st, end);
       for (AirportInterface airport : paths) {
 
         sb.append(airport.getAbrName()).append(" (").append(airport.getAbrName()).append(") -> ");
@@ -66,7 +66,7 @@ public class FrontendFD extends Application implements FrontendInterface {
       sb.append("\n");
       pathsText = new Text(sb.toString());
     } catch (Exception e) {
-      pathsText = new Text("a-> b-> c-> d");
+      pathsText = new Text("DNE");
     }
 
     pathsText.setFont(Font.font("Verdana", FontWeight.NORMAL, 14));
@@ -78,11 +78,12 @@ public class FrontendFD extends Application implements FrontendInterface {
   @Override
   public Text displayArrivalTime() {
     Text text;
-    String t = "test";
+    String t = "The path DNE";
     try {
-      int temp = backend.arrivalTime(st, end);
+      int temp = backend.arrivalTime(this.st, this.end);
       t = Integer.toString(temp);
       text = new Text(t);
+
     } catch (Exception e) {
       text = new Text(t);
     }
@@ -98,7 +99,7 @@ public class FrontendFD extends Application implements FrontendInterface {
   @Override
   public Text displayDirectFightAvailable() {
     Text text;
-    String t = "test";
+    String t = "the paht DNE";
     try {
       boolean ck = backend.directFlight(this.st, this.end);
       t = ck ? "Yes" : "No";
@@ -124,12 +125,12 @@ public class FrontendFD extends Application implements FrontendInterface {
 
     MenuButton start = new MenuButton("From: ");
     MenuButton end = new MenuButton("To: ");
-    
+
     List<AirportInterface> list = this.getList();
     Text path = new Text();
     Text time= new Text(); 
     Text av= new Text(); 
-    
+
     Button exitButton = new Button("Exit");
     exitButton.setOnAction(e -> {
       Platform.exit();
@@ -143,31 +144,36 @@ public class FrontendFD extends Application implements FrontendInterface {
         temp.setOnAction(e -> {
           start.setText(temp.getText());
           this.st = x;
+          path.setText("Shortest path: "+ displayAllShortestPaths().getText());
+          time.setText("total time: "+ displayArrivalTime().getText());  
+          av.setText("direct flight availability: "+displayDirectFightAvailable().getText()); 
+
         });
         temp1.setOnAction(e -> {
 
           end.setText(temp1.getText());
           this.end = x;
+          path.setText("Shortest path: "+ displayAllShortestPaths().getText());
+          time.setText("total time: "+ displayArrivalTime().getText());  
+          av.setText("direct flight availability: "+displayDirectFightAvailable().getText()); 
+
         });
 
         start.getItems().add(temp);
         end.getItems().add(temp1);
-        
+
       }
-      path.setText("Shortest path: "+ displayAllShortestPaths().getText());
-      time.setText("total time: "+ displayArrivalTime().getText());  
-      av.setText("direct flight availability: "+displayDirectFightAvailable().getText()); 
-      
+
     } catch (Exception e) {
-      
+
       // placeholder
-          
-     MenuItem temp = new MenuItem("Airport 1");
+
+      MenuItem temp = new MenuItem("Airport 1");
 
       MenuItem temp1 = new MenuItem("Airport 2");
       MenuItem temp2 = new MenuItem("Airport 1");
       MenuItem temp3 = new MenuItem("Airport 2");
-      
+
       temp.setOnAction(ee -> {
         start.setText(temp.getText());
 
@@ -181,7 +187,7 @@ public class FrontendFD extends Application implements FrontendInterface {
 
       temp1.setOnAction(ee -> {
         start.setText(temp1.getText());
-      
+
         path.setText("Shortest path: "+ displayAllShortestPaths().getText());
         time.setText("total time: "+ displayArrivalTime().getText()); 
         av.setText("direct flight availability: "+displayDirectFightAvailable().getText()); 
@@ -197,7 +203,7 @@ public class FrontendFD extends Application implements FrontendInterface {
         path.setText("Shortest path: "+ displayAllShortestPaths().getText());
         time.setText("total time: "+ displayArrivalTime().getText());  
         av.setText("direct flight availability: "+displayDirectFightAvailable().getText()); 
-        
+
         AirportInterface ai = new AirportDW("airport1", "ai1", 100);
         this.end = ai;
 
@@ -208,7 +214,7 @@ public class FrontendFD extends Application implements FrontendInterface {
 
         AirportInterface ai = new AirportDW("airport2", "ai2", 100);
         this.end = ai;
-        
+
         path.setText("Shortest path: "+ "nope");
         time.setText("total time: "+ "nope");  
         av.setText("direct flight availability: "+"nope"); 
@@ -220,7 +226,7 @@ public class FrontendFD extends Application implements FrontendInterface {
       end.getItems().addAll(temp2, temp3);
 
     }
-    
+
     path.setFont(new Font(30));
     path.setFill(Color.BROWN); 
     time.setFont(new Font(20));
@@ -230,7 +236,7 @@ public class FrontendFD extends Application implements FrontendInterface {
     StackPane buttonPane = new StackPane();
 
     HBox hbox = new HBox(start, end);
-    
+
 
     buttonPane.getChildren().addAll(hbox);
     BorderPane borderPane = new BorderPane();
@@ -242,7 +248,7 @@ public class FrontendFD extends Application implements FrontendInterface {
     pane.setPadding(new Insets(30, 20, 20, 30)); // sets 10px top, 20px right, 30px bottom, 40px left insets
     pane1.setPadding(new Insets(35, 20, 20, 30)); // sets 10px top, 20px right, 30px bottom, 40px left insets
     pane2.setPadding(new Insets(40, 20, 20, 30)); // sets 10px top, 20px right, 30px bottom, 40px left insets
-    
+
     borderPane.setTop(buttonPane);    
     borderPane.setCenter(vbox1);
     borderPane.setBottom(vbox);
@@ -262,7 +268,7 @@ public class FrontendFD extends Application implements FrontendInterface {
   }
 
 
-  
+
   public static void main(String[] args) {
     Application.launch();
   }
