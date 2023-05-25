@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 run : runF runAE runDW
 
 runTests: runDataWranglerTests runAlgorithmEngineerTests runFrontendDeveloperTests
@@ -31,6 +32,3 @@ runAE:
 	javac AirportAE.java BaseGraph.java DijkstraGraph.java DijkstraWithMinTransfer.java GraphADT.java
 placeHolders.class:
 	javac FlightPathBackendInterface.java FlightPathBackendFD.java fileReaderInterface.java fileReaderFD.java EdgeInterface.java EdgeFD.java DijkstraWithMinTransferInterface.java AirportInterface.java AirportFD.java 
-
-clean:
-	rm *.class
