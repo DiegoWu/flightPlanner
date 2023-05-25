@@ -2,11 +2,12 @@ import java.util.*;
 import java.io.*;  
 import java.nio.file.Files;
 public class FlightPathBackendBD implements FlightPathBackendInterface{
-  private File f= new File("./DWTest2.dot");
+  private File f= new File("DWTest.dot");
   private fileReaderInterface reader;
 
-  private DijkstraGraph<AirportInterface, Integer> graph;
-  private  DijkstraWithMinTransfer<AirportInterface, Integer> min= new DijkstraWithMinTransfer<AirportInterface, Integer> ( this.graph);
+  private DijkstraGraph<AirportInterface, Integer> graph= new DijkstraGraph<AirportInterface, Integer>() ;
+  
+  private  DijkstraWithMinTransfer<AirportInterface, Integer> min;
 
   public FlightPathBackendBD() throws FileNotFoundException{
     try{
@@ -22,6 +23,7 @@ public class FlightPathBackendBD implements FlightPathBackendInterface{
     for(EdgeInterface edge: this.reader.getEdgeList()){
       this.graph.insertEdge(edge.getPredecessor(), edge.getSuccessor(), edge.getWeight());
     }
+    min= new DijkstraWithMinTransfer<AirportInterface, Integer> ( this.graph);
 
   }
 

@@ -1,4 +1,4 @@
-run : runF runAE runDW runBD
+run :  runAE runDW runBD runF
 
 runTests: runDataWranglerTests runAlgorithmEngineerTests runFrontendDeveloperTests
 
