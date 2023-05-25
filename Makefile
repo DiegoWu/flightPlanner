@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 run : runF runAE runDW
 
 runTests: runDataWranglerTests runAlgorithmEngineerTests runFrontendDeveloperTests
