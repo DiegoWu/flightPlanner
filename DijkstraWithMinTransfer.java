@@ -36,8 +36,5 @@ public class DijkstraWithMinTransfer<NodeType, EdgeType extends Number> extends 
 		return list; // A list
 	}
 
-
-
-
 }
 

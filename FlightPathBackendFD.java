@@ -1,10 +1,10 @@
 
 import java.util.List;
-
+import java.util.NoSuchElementException;
 public class FlightPathBackendFD implements FlightPathBackendInterface {
 
   @Override
-  public void loadMap(String filepath) {
+  public void LoadMap(String filepath) {
     // TODO Auto-generated method stub
     
   }
@@ -24,7 +24,7 @@ public class FlightPathBackendFD implements FlightPathBackendInterface {
  
 
   @Override
-  public int arrivalTime(AirportInterface start, AirportInterface end) {
+  public int arrivalTime(AirportInterface start, AirportInterface end)throws NoSuchElementException {
     // TODO Auto-generated method stub
     return 0;
   }

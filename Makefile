@@ -1,4 +1,4 @@
-run : runF runAE runDW
+run : runF runAE runDW runBD
 
 runTests: runDataWranglerTests runAlgorithmEngineerTests runFrontendDeveloperTests
 
@@ -10,7 +10,8 @@ DataWranglerTests.class: DataWranglerTests.java
 	
 runDW: AirportDW.java EdgeDW.java FileReaderDW.java
 	javac AirportDW.java EdgeDW.java FileReaderDW.java
-
+runBD: FlightPathBackendBD.java
+	javac FlightPathBackendBD.java
 runFrontendDeveloperTests: FrontendDeveloperTests.class
 	java --module-path ./lib1 --add-modules javafx.controls --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED -jar junit5.jar -cp .:JavaFXTester.jar -c FrontendDeveloperTests
 
@@ -30,4 +31,6 @@ AlgorithmEngineerTests.class: AlgorithmEngineerTests.java runAE
 runAE:
 	javac AirportAE.java BaseGraph.java DijkstraGraph.java DijkstraWithMinTransfer.java GraphADT.java
 placeHolders.class:
-	javac FlightPathBackendInterface.java FlightPathBackendFD.java fileReaderInterface.java fileReaderFD.java EdgeInterface.java EdgeFD.java DijkstraWithMinTransferInterface.java AirportInterface.java AirportFD.java 
+	javac FlightPathBackendInterface.java FlightPathBackendFD.java fileReaderInterface.java fileReaderFD.java EdgeInterface.java EdgeFD.java DijkstraWithMinTransferInterface.java AirportInterface.java AirportFD.java
+clean: 
+	rm *.class

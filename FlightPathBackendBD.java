@@ -1,27 +1,53 @@
-public class FlightPathBackendBD{
+import java.util.*;
+import java.io.*;  
+import java.nio.file.Files;
+public class FlightPathBackendBD implements FlightPathBackendInterface{
+  private File f= new File("./DWTest2.dot");
+  private fileReaderInterface reader;
 
-  private fileReaderInterface reader= fileReaderDW("DWTest2.dot");
-  private DijstraGraph<AirportInterface, EdgeInterface> graph;
-  for(AirportInterface airport: reader.getAirportList()){
-    graph.insertNode(airport);
+  private DijkstraGraph<AirportInterface, Integer> graph;
+  private  DijkstraWithMinTransfer<AirportInterface, Integer> min= new DijkstraWithMinTransfer<AirportInterface, Integer> ( this.graph);
+
+  public FlightPathBackendBD() throws FileNotFoundException{
+    try{
+      reader= new FileReaderDW(f);
+    }catch(Exception e){
+      throw new FileNotFoundException(); 
+    };
+
+
+    for(AirportInterface airport: this.reader.getAirportList()){
+      this.graph.insertNode(airport);
+    }
+    for(EdgeInterface edge: this.reader.getEdgeList()){
+      this.graph.insertEdge(edge.getPredecessor(), edge.getSuccessor(), edge.getWeight());
+    }
+
   }
-  for(EdgeInterface edge: reader.getEdgeList()){
-    graph.insertEdge(edge.getPredecessor(), edge.getSuccessor(), edge.getWeight());
-  }
-  private  DijkstraWithMinTransfer<AirportInterface, EdgeInterface>() min= new DijkstraWithMinTransfer<AirportInterface, EdgeInterface> (this.graph);
 
-  public int arrivalTime(AirportInterface start, AirportInterface end, int time){
-    
-    return min.minTransfer(start, end);
+  @Override
+  public int arrivalTime(AirportInterface start, AirportInterface end) throws NoSuchElementException{
+
+    return this.min.minTransfer(start, end);
 
   }
-  public boolean directFlight(AirportInterface st, AirportInteface end){
+  @Override
+  public boolean directFlight(AirportInterface st, AirportInterface end){
 
-    return null;
+    return false;
 
   }
-  public List<AirportInterface> shortestPath(AirportInterface st, AirportInterface end){
+  @Override
+  public List<AirportInterface> shortestPaths(AirportInterface st, AirportInterface end){
 
-    return min.shortestPathData(st, end); 
+    return this.min.shortestPathData(st, end); 
+  }
+
+  @Override
+  public List<AirportInterface> getAllAirports(){
+    return this.reader.getAirportList();
+  }
+  @Override
+  public void LoadMap(String filename) throws FileNotFoundException{
   }
 }
