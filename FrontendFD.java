@@ -60,7 +60,7 @@ public class FrontendFD extends Application implements FrontendInterface {
     List<AirportInterface> paths = backend.shortestPaths(st, end);
       for (AirportInterface airport : paths) {
 
-        sb.append(airport.getAbrName()).append(" (").append(airport.getAbrName()).append(") -> ");
+        sb.append(airport.getName()).append(" (").append(airport.getAbrName()).append(") -> ");
       }
       sb.delete(sb.length() - 4, sb.length());
       sb.append("\n");
