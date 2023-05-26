@@ -2,13 +2,13 @@ import java.util.*;
 import java.io.*;  
 import java.nio.file.Files;
 public class FlightPathBackendBD implements FlightPathBackendInterface{
-  private File f= new File("DWTest.dot");
+  private File f= new File("airport.dot");
   private fileReaderInterface reader;
 
   private DijkstraGraph<AirportInterface, Integer> graph= new DijkstraGraph<AirportInterface, Integer>() ;
   
   private  DijkstraWithMinTransfer<AirportInterface, Integer> min;
-
+   
   public FlightPathBackendBD() {
     try{
       reader= new FileReaderDW(f);
@@ -27,16 +27,14 @@ public class FlightPathBackendBD implements FlightPathBackendInterface{
   }
 
   @Override
-  public int arrivalTime(AirportInterface start, AirportInterface end) throws NoSuchElementException{
+  public int arrivalTime(AirportInterface st, AirportInterface end) throws NoSuchElementException{
 
-    return this.min.minTransfer(start, end);
+    return this.min.minTransfer(st, end);
 
   }
   @Override
   public boolean directFlight(AirportInterface st, AirportInterface end){
-
-    return false;
-
+    return this.min.minTransfer(st, end)<=2? true: false;
   }
   @Override
   public List<AirportInterface> shortestPaths(AirportInterface st, AirportInterface end){

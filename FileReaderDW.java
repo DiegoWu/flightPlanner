@@ -111,6 +111,7 @@ public class FileReaderDW implements fileReaderInterface{
 
       // Add edge
       edgeList.add(new EdgeDW(predAirport,sucAirport,edgeWeight));
+      edgeList.add(new EdgeDW(sucAirport,predAirport, edgeWeight));
 
     }
   }catch(FileNotFoundException e){

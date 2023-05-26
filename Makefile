@@ -15,7 +15,6 @@ runBD: FlightPathBackendBD.java
 runFrontendDeveloperTests: FrontendDeveloperTests.class
 	java --module-path ./lib1 --add-modules javafx.controls --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED -jar junit5.jar -cp .:JavaFXTester.jar -c FrontendDeveloperTests
 
-
 FrontendDeveloperTests.class:runAE runDW FrontendDeveloperTests.java FrontendFD.class placeHolders.class
 	javac --module-path ./lib1 --add-modules javafx.controls -cp .:junit5.jar:JavaFXTester.jar FrontendDeveloperTests.java 
 	
