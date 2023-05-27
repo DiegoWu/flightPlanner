@@ -19,6 +19,8 @@ public class FlightPathBackendBD implements FlightPathBackendInterface{
       this.graph.insertNode(airport);
     }
     for(EdgeInterface edge: this.reader.getEdgeList()){
+      if(!graph.containsNode((AirportInterface) edge.getPredecessor())) graph.insertNode(edge.getPredecessor());
+      if(!graph.containsNode((AirportInterface) edge.getSuccessor())) graph.insertNode(edge.getSuccessor());
       this.graph.insertEdge(edge.getPredecessor(), edge.getSuccessor(), edge.getWeight());
     }
     min= new DijkstraWithMinTransfer<AirportInterface, Integer> ( this.graph);

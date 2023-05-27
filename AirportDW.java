@@ -59,5 +59,23 @@ public class AirportDW implements AirportInterface{
 		return abbreviation;
 	}
 
+  @Override
+  public boolean equals(Object o) {
+    if (o == null)
+      return false;
+    if (o.getClass() != this.getClass())
+      return false;
+    final AirportDW other = (AirportDW) o;
+    if (other.getName().equals(this.getName()) && other.getAbrName().equals(this.getAbrName())
+        && other.getSize() == this.getSize())
+      return true;
+    return false;
+
+  }
+   @Override 
+  
+  public int hashCode() {
+    return this.getName().hashCode()+ this.getAbrName().hashCode(); 
+  }
 
 }

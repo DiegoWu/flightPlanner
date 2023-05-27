@@ -33,10 +33,10 @@ public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<
    */
   protected class SearchNode implements Comparable<SearchNode> {
     public Node node;
-    public double cost;
+    public int cost;
     public SearchNode predecessor;
 
-    public SearchNode(Node node, double cost, SearchNode predecessor) {
+    public SearchNode(Node node, int cost, SearchNode predecessor) {
       this.node = node;
       this.cost = cost;
       this.predecessor = predecessor;
@@ -44,7 +44,7 @@ public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<
 
     public int compareTo(SearchNode other) {
       if (cost > other.cost)
-        return +1;
+        return 1;
       if (cost < other.cost)
         return -1;
       return 0;
@@ -86,7 +86,7 @@ public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<
 
     // initialize the unvisited nodes
     for (Node node : this.nodes.values()) {
-      SearchNode temp = new SearchNode(node, Double.MAX_VALUE, null);
+      SearchNode temp = new SearchNode(node, Integer.MAX_VALUE, null);
       unvisited.put(node, temp);
     }
 
@@ -105,9 +105,9 @@ public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<
           continue;
 
         after = unvisited.get(edge.successor); // the neighbor node for start node
-        if (after.cost > st.cost + edge.data.doubleValue()) { // checking a shorter path between
+        if (after.cost > st.cost + edge.data.intValue()) { // checking a shorter path between
                                                               // starting node and current node
-          after.cost = st.cost + edge.data.doubleValue();
+          after.cost = st.cost + edge.data.intValue();
           after.predecessor = st;
           // updating the searchnode in unvisited hashtable
           unvisited.remove(after.node);

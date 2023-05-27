@@ -99,7 +99,7 @@ public class FrontendFD extends Application implements FrontendInterface {
   @Override
   public Text displayDirectFightAvailable() {
     Text text;
-    String t = "the paht DNE";
+    String t = "the path DNE";
     try {
       boolean ck = backend.directFlight(this.st, this.end);
       t = ck ? "Yes" : "No";
@@ -150,11 +150,10 @@ public class FrontendFD extends Application implements FrontendInterface {
 
         });
         temp1.setOnAction(e -> {
-
           end.setText(temp1.getText());
           this.end = x;
           path.setText("Shortest path: "+ displayAllShortestPaths().getText());
-          time.setText("total time: "+ displayArrivalTime().getText());  
+          time.setText("total stops: "+ displayArrivalTime().getText());  
           av.setText("direct flight availability: "+displayDirectFightAvailable().getText()); 
 
         });

@@ -8,8 +8,8 @@ runDataWranglerTests: DataWranglerTests.class
 DataWranglerTests.class: DataWranglerTests.java
 	javac --module-path ./lib1 --add-modules javafx.controls -cp .:junit5.jar:JavaFXTester.jar DataWranglerTests.java 
 	
-runDW: AirportDW.java EdgeDW.java FileReaderDW.java
-	javac AirportDW.java EdgeDW.java FileReaderDW.java
+runDW: AirportDW.java EdgeDW.java FileReaderDW.java CSVReader.java
+	javac AirportDW.java EdgeDW.java FileReaderDW.java CSVReader.java 
 runBD: FlightPathBackendBD.java
 	javac FlightPathBackendBD.java
 runFrontendDeveloperTests: FrontendDeveloperTests.class

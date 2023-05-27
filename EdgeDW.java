@@ -59,5 +59,19 @@ public class EdgeDW implements EdgeInterface{
 	public int getWeight(){
 		return edgeWeight;
 	}
+  @Override
+  public boolean equals(Object o) {
+    if (o == null)
+      return false;
+    if (o.getClass() != this.getClass())
+      return false;
+    final EdgeDW other = (EdgeDW) o;
+    if (other.getPredecessor().equals(this.getPredecessor())
+        && other.getSuccessor().equals(this.getSuccessor())
+        && other.getWeight() == this.getWeight())
+      return true;
 
+    return false;
+
+  }
 }
