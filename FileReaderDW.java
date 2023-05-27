@@ -108,6 +108,8 @@ public class FileReaderDW implements fileReaderInterface{
         }
 
       }
+      if(predAirport == null || sucAirport == null)
+        continue;
 
       // Add edge
       edgeList.add(new EdgeDW(predAirport,sucAirport,edgeWeight));

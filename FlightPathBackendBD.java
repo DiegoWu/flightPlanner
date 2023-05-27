@@ -2,20 +2,19 @@ import java.util.*;
 import java.io.*;  
 import java.nio.file.Files;
 public class FlightPathBackendBD implements FlightPathBackendInterface{
-  private File f= new File("DWTest.dot");
-  private fileReaderInterface reader;
+  //private File f= new File("DWTest2.dot");
+  private CSVReader reader;
 
   private DijkstraGraph<AirportInterface, Integer> graph= new DijkstraGraph<AirportInterface, Integer>() ;
-  
+
   private  DijkstraWithMinTransfer<AirportInterface, Integer> min;
-   
+
   public FlightPathBackendBD() {
     try{
-      reader= new FileReaderDW(f);
+      reader= new CSVReader();
+
     }catch(Exception e){
-    };
-
-
+    }
     for(AirportInterface airport: this.reader.getAirportList()){
       this.graph.insertNode(airport);
     }
@@ -23,9 +22,7 @@ public class FlightPathBackendBD implements FlightPathBackendInterface{
       this.graph.insertEdge(edge.getPredecessor(), edge.getSuccessor(), edge.getWeight());
     }
     min= new DijkstraWithMinTransfer<AirportInterface, Integer> ( this.graph);
-
   }
-
   @Override
   public int arrivalTime(AirportInterface st, AirportInterface end) throws NoSuchElementException{
 

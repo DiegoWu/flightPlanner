@@ -25,10 +25,10 @@ public class DijkstraWithMinTransfer<NodeType, EdgeType extends Number> extends 
   public int minTransfer(AirportInterface start, AirportInterface end) {
     if(start.equals(end)) // if theres no path
       return 0;
-    return graph.shortestPathData(start, end).size(); // the miniumum transfers
+    return this.graph.shortestPathData(start, end).size(); // the miniumum transfers
   }
   public List<AirportInterface> shortestPathData(AirportInterface start, AirportInterface end) {
-    return graph.shortestPathData(start, end);
+    return this.graph.shortestPathData(start, end);
   }
   @Override
   public List<AirportInterface> findAirportConnections(AirportInterface start) {
