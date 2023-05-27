@@ -1,12 +1,12 @@
-
 // --== CS400 File Header Information ==--
-// Name: Talon Vorpahl
-// Email: tvorpahl2@wisc.edu
-// Group and Team: DX, red
-// Group TA: April
-// Lecturer: 004
-// Notes to Grader: <optional extra notes>
-
+// Name: <Ti Wu>
+// Email: <twu353@wisc.edu>
+// Group and Team: <DX>
+// Group TA: <April>
+// Lecturer: <Florian>
+// Notes to Grader: <Orz>
+import java.util.ArrayList; // import the ArrayList class
+import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Hashtable;
 import java.util.List;
@@ -14,190 +14,158 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 /**
- * This class extends the BaseGraph data structure with additional methods for
- * computing the total cost and list of node data along the shortest path
- * connecting a provided starting to ending nodes. This class makes use of
- * Dijkstra's shortest path algorithm.
+ * This class extends the BaseGraph data structure with additional methods for computing the total
+ * cost and list of node data along the shortest path connecting a provided starting to ending
+ * nodes. This class makes use of Dijkstra's shortest path algorithm.
  */
 public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<NodeType, EdgeType>
-		implements GraphADT<NodeType, EdgeType> {
+    implements GraphADT<NodeType, EdgeType> {
 
-	/**
-	 * While searching for the shortest path between two nodes, a SearchNode
-	 * contains data about one specific path between the start node and another node
-	 * in the graph. The final node in this path is stored in it's node field. The
-	 * total cost of this path is stored in its cost field. And the predecessor
-	 * SearchNode within this path is referened by the predecessor field (this field
-	 * is null within the SearchNode containing the starting node in it's node
-	 * field).
-	 *
-	 * SearchNodes are Comparable and are sorted by cost so that the lowest cost
-	 * SearchNode has the highest priority within a java.util.PriorityQueue.
-	 */
-	protected class SearchNode implements Comparable<SearchNode> {
-		public Node node;
-		public double cost;
-		public SearchNode predecessor;
+  /**
+   * While searching for the shortest path between two nodes, a SearchNode contains data about one
+   * specific path between the start node and another node in the graph. The final node in this path
+   * is stored in it's node field. The total cost of this path is stored in its cost field. And the
+   * predecessor SearchNode within this path is referened by the predecessor field (this field is
+   * null within the SearchNode containing the starting node in it's node field).
+   *
+   * SearchNodes are Comparable and are sorted by cost so that the lowest cost SearchNode has the
+   * highest priority within a java.util.PriorityQueue.
+   */
+  protected class SearchNode implements Comparable<SearchNode> {
+    public Node node;
+    public double cost;
+    public SearchNode predecessor;
 
-		public SearchNode(Node node, double cost, SearchNode predecessor) {
-			this.node = node;
-			this.cost = cost;
-			this.predecessor = predecessor;
-		}
+    public SearchNode(Node node, double cost, SearchNode predecessor) {
+      this.node = node;
+      this.cost = cost;
+      this.predecessor = predecessor;
+    }
 
-		public int compareTo(SearchNode other) {
-			if (cost > other.cost)
-				return +1;
-			if (cost < other.cost)
-				return -1;
-			return 0;
-		}
-	}
+    public int compareTo(SearchNode other) {
+      if (cost > other.cost)
+        return +1;
+      if (cost < other.cost)
+        return -1;
+      return 0;
+    }
+  }
 
-	/**
-	 * This helper method creates a network of SearchNodes while computing the
-	 * shortest path between the provided start and end locations. The SearchNode
-	 * that is returned by this method is represents the end of the shortest path
-	 * that is found: it's cost is the cost of that shortest path, and the nodes
-	 * linked together through predecessor references represent all of the nodes
-	 * along that shortest path (ordered from end to start).
-	 *
-	 * @param start the data item in the starting node for the path
-	 * @param end   the data item in the destination node for the path
-	 * @return SearchNode for the final end node within the shortest path
-	 * @throws NoSuchElementException when no path from start to end is found or
-	 *                                when either start or end data do not
-	 *                                correspond to a graph node
-	 */
-	protected SearchNode computeShortestPath(NodeType start, NodeType end) throws NoSuchElementException {
-		// Checks if the start and end are Nodes in the tree
-		if (!containsNode(start) || !containsNode(end))
-			throw new NoSuchElementException("No start No end");
+  // private helper method for print
+  private static <T> void print(T x) {
+    System.out.println(x);
+  }
 
-		// Create a Hashtable to keep track of visited nodes and their corresponding
-		// SearchNodes
-		Hashtable<Node, SearchNode> visited = new Hashtable<>();
+  /**
+   * This helper method creates a network of SearchNodes while computing the shortest path between
+   * the provided start and end locations. The SearchNode that is returned by this method is
+   * represents the end of the shortest path that is found: it's cost is the cost of that shortest
+   * path, and the nodes linked together through predecessor references represent all of the nodes
+   * along that shortest path (ordered from end to start).
+   *
+   * @param start the data item in the starting node for the path
+   * @param end   the data item in the destination node for the path
+   * @return SearchNode for the final end node within the shortest path
+   * @throws NoSuchElementException when no path from start to end is found or when either start or
+   *                                end data do not correspond to a graph node
+   */
+  protected SearchNode computeShortestPath(NodeType start, NodeType end)
+      throws NoSuchElementException {
 
-		// Create a priority queue to store SearchNodes with the smallest cost at the
-		// top
-		PriorityQueue<SearchNode> queue = new PriorityQueue<>();
+    if (!this.containsNode(start) || !this.containsNode(end))
+      throw new NoSuchElementException("the starting node or the ending node does not exist");
 
-		// Create a SearchNode for the start node and add it to the queue
-		SearchNode startNode = new SearchNode(nodes.get(start), 0, null);
-		queue.add(startNode);
+    PriorityQueue<SearchNode> pq = new PriorityQueue<SearchNode>();
 
-		// While there are SearchNodes in the queue, continue searching for the shortest
-		// path
-		while (!queue.isEmpty()) {
-			// Get the SearchNode with the smallest cost
-			SearchNode curSearch = queue.poll();
-			Node curNode = curSearch.node;
-			double curCost = curSearch.cost;
-			// Get the edges leaving the current node
-			List<Edge> sucEdges = new LinkedList<>(curNode.edgesLeaving);
+    Node s = this.nodes.get(start); // starting node
+    Node e = this.nodes.get(end); // ending node
+    SearchNode ss = new SearchNode(s, 0, null); // starting node searchnode version
 
-			// For each successor edge, create a new SearchNode and add it to the queue if
-			// necessary
-			while (!sucEdges.isEmpty()) {
-				// Get the edge with the smallest cost
-				Edge nextEdge = minHelper(sucEdges);
+    Hashtable<Node, SearchNode> visited = new Hashtable<Node, SearchNode>();
+    Hashtable<Node, SearchNode> unvisited = new Hashtable<Node, SearchNode>();
 
-				// Create a new SearchNode for the successor node
-				SearchNode nextSearch = new SearchNode(nextEdge.successor, curCost + nextEdge.data.doubleValue(),
-						curSearch);
-				Node nextNode = nextSearch.node;
-				// If the successor node has already been visited, update the corresponding
-				// SearchNode if the new SearchNode has a smaller cost
-				if (visited.containsKey(nextNode)) {
-					if (nextSearch.compareTo(visited.get(nextNode)) < 0)
-						visited.replace(nextNode, nextSearch);
-				} else // Otherwise, add the new SearchNode to the queue
-					queue.add(nextSearch);
-			}
+    // initialize the unvisited nodes
+    for (Node node : this.nodes.values()) {
+      SearchNode temp = new SearchNode(node, Double.MAX_VALUE, null);
+      unvisited.put(node, temp);
+    }
 
-			// If the current node has already been visited, update the corresponding
-			// SearchNode if the new SearchNode has a smaller cost
-			if (visited.containsKey(curNode)) {
-				if (visited.get(curNode).compareTo(curSearch) > 0)
-					visited.replace(curNode, curSearch);
-			} else // Otherwise, add the new SearchNode to the visited Hashtable
-				visited.put(curNode, curSearch);
-		}
+    pq.add(ss); // adding the starting node to the priority queue
 
-		// If there is a SearchNode for the end node in the visited Hashtable, return it
-		if (visited.get(nodes.get(end)) != null)
-			return visited.get(nodes.get(end));
+    while (!pq.isEmpty()) {
+      SearchNode st = pq.peek(); // start node
+      pq.remove();
 
-		// Otherwise, there is no path from start to end
-		throw new NoSuchElementException("no path");
-	}
+      if (visited.get(st.node) != null) // checking whether the node is visited
+        continue;
 
-	/**
-	 * A helper method to find the minimum edge weight in the all the edges leaving the vertex
-	 * 
-	 * @param list - A list of all the edges in the tree
-	 * @return - removes the smallest edge and returns that edge
-	 */
-	private Edge minHelper(List<Edge> list) {
-		// algorithm for finding the minimum value
-		double min = Integer.MAX_VALUE;
-		int index = -1;
-		for (int i = 0; i < list.size(); i++) {
-			if (min > list.get(i).data.doubleValue()) {
-				index = i;
-				min = list.get(i).data.doubleValue();
-			}
-		}
-		// remove edge
-		Edge returned = list.remove(index);
-		return returned;
-	}
+      for (Edge edge : st.node.edgesLeaving) {
+        SearchNode after;
+        if (visited.get(edge.successor) != null) // checking whether the node is visited
+          continue;
 
-	/**
-	 * Returns the list of data values from nodes along the shortest path from the
-	 * node with the provided start value through the node with the provided end
-	 * value. This list of data values starts with the start value, ends with the
-	 * end value, and contains intermediary values in the order they are encountered
-	 * while traversing this shorteset path. This method uses Dijkstra's shortest
-	 * path algorithm to find this solution.
-	 *
-	 * @param start the data item in the starting node for the path
-	 * @param end   the data item in the destination node for the path
-	 * @return list of data item from node along this shortest path
-	 */
-	public List<NodeType> shortestPathData(NodeType start, NodeType end) {
-		// TODO: implement in step 7
-		List<NodeType> path = new LinkedList<>();
+        after = unvisited.get(edge.successor); // the neighbor node for start node
+        if (after.cost > st.cost + edge.data.doubleValue()) { // checking a shorter path between
+                                                              // starting node and current node
+          after.cost = st.cost + edge.data.doubleValue();
+          after.predecessor = st;
+          // updating the searchnode in unvisited hashtable
+          unvisited.remove(after.node);
+          unvisited.put(after.node, after);
+          pq.add(after);
+        }
+      }
+      visited.put(st.node, st);
+    }
 
-		// Compute shortest path
-		SearchNode endSearchNode = computeShortestPath(start, end);
+    if (visited.get(e) == null)
+      throw new NoSuchElementException("the path does not exist");
 
-		// Add nodes to path list (in reverse order)
-		SearchNode currentNode = endSearchNode;
-		path.add(0, currentNode.node.data);
-		while (currentNode.predecessor != null) {
-			path.add(0, currentNode.predecessor.node.data);
-			currentNode = currentNode.predecessor;
-		}
-		return path;
-	}
+    return visited.get(e);
+  }
 
-	/**
-	 * Returns the cost of the path (sum over edge weights) of the shortest path
-	 * freom the node containing the start data to the node containing the end data.
-	 * This method uses Dijkstra's shortest path algorithm to find this solution.
-	 *
-	 * @param start the data item in the starting node for the path
-	 * @param end   the data item in the destination node for the path
-	 * @return the cost of the shortest path between these nodes
-	 */
-	public double shortestPathCost(NodeType start, NodeType end) {
-		// TODO: implement in step 7
-		// Compute shortest path
-		SearchNode endSearchNode = computeShortestPath(start, end);
+  /**
+   * Returns the list of data values from nodes along the shortest path from the node with the
+   * provided start value through the node with the provided end value. This list of data values
+   * starts with the start value, ends with the end value, and contains intermediary values in the
+   * order they are encountered while traversing this shorteset path. This method uses Dijkstra's
+   * shortest path algorithm to find this solution.
+   *
+   * @param start the data item in the starting node for the path
+   * @param end   the data item in the destination node for the path
+   * @throws NoSuchElementException when no path from start to end is found or when either start or
+   *                                end data do not correspond to a graph node
+   * @return list of data item from node along this shortest path
+   */
+  public List<NodeType> shortestPathData(NodeType start, NodeType end)
+      throws NoSuchElementException {
+    SearchNode e = this.computeShortestPath(start, end);
 
-		// Return cost of shortest path
-		return endSearchNode.cost;
-	}
+    List<NodeType> temp = new ArrayList<NodeType>();
 
-}
+    while (e != null) {
+      temp.add(e.node.data); // reversely adding the nodes to temp array
+      e = e.predecessor;
+
+    }
+    Collections.reverse(temp);
+    return temp;
+  }
+
+  /**
+   * Returns the cost of the path (sum over edge weights) of the shortest path freom the node
+   * containing the start data to the node containing the end data. This method uses Dijkstra's
+   * shortest path algorithm to find this solution.
+   *
+   * @param start the data item in the starting node for the path
+   * @param end   the data item in the destination node for the path
+   * @throws NoSuchElementException when no path from start to end is found or when either start or
+   *                                end data do not correspond to a graph node
+   * @return the cost of the shortest path between these nodes
+   */
+  public double shortestPathCost(NodeType start, NodeType end) throws NoSuchElementException {
+    double cost = this.computeShortestPath(start, end).cost;
+    return cost;
+  }
+
+ }

@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;  
 import java.nio.file.Files;
 public class FlightPathBackendBD implements FlightPathBackendInterface{
-  private File f= new File("airport.dot");
+  private File f= new File("DWTest.dot");
   private fileReaderInterface reader;
 
   private DijkstraGraph<AirportInterface, Integer> graph= new DijkstraGraph<AirportInterface, Integer>() ;
