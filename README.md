@@ -6,7 +6,7 @@
 
 ## Frontend
 
-### JavaFX, CSS
+### JavaFX
 
 ## Backend
 
