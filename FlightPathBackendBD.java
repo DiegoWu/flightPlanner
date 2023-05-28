@@ -33,7 +33,7 @@ public class FlightPathBackendBD implements FlightPathBackendInterface{
   }
   @Override
   public boolean directFlight(AirportInterface st, AirportInterface end){
-    return this.min.minTransfer(st, end)<=2? true: false;
+    return this.graph.containsEdge(st, end); 
   }
   @Override
   public List<AirportInterface> shortestPaths(AirportInterface st, AirportInterface end){
