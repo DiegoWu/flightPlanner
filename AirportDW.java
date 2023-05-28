@@ -10,7 +10,7 @@
  * This class represents an airport with
  * its size, name, and name abbreviation
  */
-public class AirportDW implements AirportInterface{
+public class AirportDW implements AirportInterface, Comparable<AirportDW> {
 
 	private String name; // Airport name
 	private String abbreviation; // Abbreviation of name
@@ -66,8 +66,7 @@ public class AirportDW implements AirportInterface{
     if (o.getClass() != this.getClass())
       return false;
     final AirportDW other = (AirportDW) o;
-    if (other.getName().equals(this.getName()) && other.getAbrName().equals(this.getAbrName())
-        && other.getSize() == this.getSize())
+    if (other.getName().equals(this.getName()) && other.getAbrName().equals(this.getAbrName()))
       return true;
     return false;
 
@@ -77,5 +76,16 @@ public class AirportDW implements AirportInterface{
   public int hashCode() {
     return this.getName().hashCode()+ this.getAbrName().hashCode(); 
   }
-
+   @Override
+  public int compareTo(AirportDW o) {
+   if(this.getSize()> o.getSize()) {
+     return 1; 
+   }
+   else if(this.getSize()< o.getSize()) {
+     return -1; 
+   }
+   else {
+     return 0; 
+   } 
+  }
 }

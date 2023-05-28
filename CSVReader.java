@@ -3,12 +3,7 @@ import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner; // Import the Scanner class to read text files
-import java.util.Set;
-
+import java.util.*;
 
 public class CSVReader {
 
@@ -46,9 +41,9 @@ public class CSVReader {
         new FileReader("airport.csv"))) {
       String line;
       int cnt = 0, cnt1= 0; 
-      Set<String> st = new HashSet<String>();
+      Set<AirportInterface> st = new HashSet<AirportInterface>();
       Set<String> edgest = new HashSet<String>();
-      
+      Set<String> st1= new HashSet<String>();      
       while ((line = br.readLine()) != null) {
         String[] values = line.split(",");
         cnt++;
@@ -69,26 +64,11 @@ public class CSVReader {
         AirportInterface pre = new AirportDW(values[2], values[0], sz1);
         // println(data);
         
-        if (!st.contains(values[1])) {
-         
+        if(!st1.contains(values[2])) st.add(pre);
+        if(!st1.contains(values[4])) st.add(suc);
 
-          //if (sz >= 200000) {
-            this.airportList.add(suc);
-            cnt1++; 
-          
-          //}
-        }
-        
-        if (!st.contains(values[0])) {
-       
-          //if (sz >= 200000) {
-            this.airportList.add(pre);
-            cnt1++; 
-         // }
-        }
-
-        st.add(values[0]);
-        st.add(values[1]);
+        st1.add(values[0]);
+        st1.add(values[1]);
         String data = values[0] + "--" + values[1]; 
         if (!edgest.contains(data)) {
           this.edgeList.add(new EdgeDW(pre, suc, edgeWeight));
@@ -98,8 +78,21 @@ public class CSVReader {
         edgest.add(data);
 
       }
-     // println(cnt1); 
-
+      for (AirportInterface x : st) {
+      
+        this.airportList.add(x);
+      }
+      
+      for(int i=0; i<this.airportList.size(); i++){
+        for(int j=i+1; j<this.airportList.size(); j++){
+          if(this.airportList.get(i).getSize()< this.airportList.get(j).getSize()){
+            AirportInterface temp = this.airportList.get(i);
+            this.airportList.set(i, this.airportList.get(j));
+            this.airportList.set(j, temp);
+          }
+        }
+      }
+    
     } catch (Exception e) {
       print(e);
     }

@@ -6,8 +6,6 @@
 // Team: DX red
 // Notes to Grader: Orz
 
-
-
 import javafx.scene.layout.HBox;
 import javafx.scene.Group;
 import javafx.scene.control.MenuButton;
@@ -138,14 +136,14 @@ public class FrontendFD extends Application implements FrontendInterface {
 
     try {
       for (AirportInterface x : list) {
-        MenuItem temp = new MenuItem(x.getName());
-        MenuItem temp1 = new MenuItem(x.getName());
+        MenuItem temp = new MenuItem(x.getName()+ " ("+x.getAbrName()+")");
+        MenuItem temp1 = new MenuItem(x.getName()+ " ("+x.getAbrName()+")");
 
         temp.setOnAction(e -> {
           start.setText(temp.getText());
           this.st = x;
           path.setText("Shortest path: "+ displayAllShortestPaths().getText());
-          time.setText("total time: "+ displayArrivalTime().getText());  
+          time.setText("total stops: "+ displayArrivalTime().getText());  
           av.setText("direct flight availability: "+displayDirectFightAvailable().getText()); 
 
         });
