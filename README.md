@@ -1,4 +1,4 @@
-# flightPlanner model
+# the US airports flightPlanner 
 
 ## UW-Madison CS 400 project 3
 
@@ -14,4 +14,4 @@
 
 ## data 
 
-### kaggle
+### Kaggle
