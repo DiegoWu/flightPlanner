@@ -38,7 +38,7 @@ public class CSVReader {
 
 
     try (BufferedReader br = new BufferedReader(
-        new FileReader("airport.csv"))) {
+          new FileReader("airport.csv"))) {
       String line;
       int cnt = 0, cnt1= 0; 
       Set<AirportInterface> st = new HashSet<AirportInterface>();
@@ -50,7 +50,7 @@ public class CSVReader {
         if (cnt == 1)
           continue;
 
-       
+
         values[0] = values[0].replaceAll("\"", "");
         values[1] = values[1].replaceAll("\"", "");
         values[2] = values[2].replaceAll("\"", "");
@@ -63,7 +63,7 @@ public class CSVReader {
         AirportInterface suc = new AirportDW(values[4], values[1], sz);
         AirportInterface pre = new AirportDW(values[2], values[0], sz1);
         // println(data);
-        
+
         if(!st1.contains(values[2])) st.add(pre);
         if(!st1.contains(values[4])) st.add(suc);
 
@@ -73,16 +73,16 @@ public class CSVReader {
         if (!edgest.contains(data)) {
           this.edgeList.add(new EdgeDW(pre, suc, edgeWeight));
           this.edgeList.add(new EdgeDW(suc, pre, edgeWeight));
-          
+
         }
         edgest.add(data);
 
       }
       for (AirportInterface x : st) {
-      
+
         this.airportList.add(x);
       }
-      
+
       for(int i=0; i<this.airportList.size(); i++){
         for(int j=i+1; j<this.airportList.size(); j++){
           if(this.airportList.get(i).getSize()< this.airportList.get(j).getSize()){
@@ -92,7 +92,7 @@ public class CSVReader {
           }
         }
       }
-    
+
     } catch (Exception e) {
       print(e);
     }

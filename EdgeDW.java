@@ -13,52 +13,52 @@
  */
 public class EdgeDW implements EdgeInterface{
 
-	private AirportInterface predecessor; // Airport of predecessor node
-	private AirportInterface successor;  // Airport of successor node
-	private int edgeWeight; // Weight of edge
+  private AirportInterface predecessor; // Airport of predecessor node
+  private AirportInterface successor;  // Airport of successor node
+  private int edgeWeight; // Weight of edge
 
-	/**
-	 * Constructor
-	 *
-	 * @param a1 - predecessor airport node
-	 * @param a2 - successor airport node
-	 * @param weight - weight of edge
-	 */
-	public EdgeDW(AirportInterface a1, AirportInterface a2, int weight){
-		predecessor = a1;
-		successor = a2;
-		edgeWeight = weight;
-	}
+  /**
+   * Constructor
+   *
+   * @param a1 - predecessor airport node
+   * @param a2 - successor airport node
+   * @param weight - weight of edge
+   */
+  public EdgeDW(AirportInterface a1, AirportInterface a2, int weight){
+    predecessor = a1;
+    successor = a2;
+    edgeWeight = weight;
+  }
 
-	/**
-	 * Getter for predecessor
-	 *
-	 * @return predecessor - predecessor Airport node
-	 */
-	@Override
-	public AirportInterface getPredecessor(){
-		return predecessor;
-	}
+  /**
+   * Getter for predecessor
+   *
+   * @return predecessor - predecessor Airport node
+   */
+  @Override
+  public AirportInterface getPredecessor(){
+    return predecessor;
+  }
 
-	/**
-	 * Getter for successor
-	 *
-	 * @return sucessor - successor Airport node
-	 */
-	@Override
-	public AirportInterface getSuccessor(){
-		return successor;
-	}
+  /**
+   * Getter for successor
+   *
+   * @return sucessor - successor Airport node
+   */
+  @Override
+  public AirportInterface getSuccessor(){
+    return successor;
+  }
 
-	/**
-	 * Getter for edgeWeight
-	 *
-	 * @return edgeWeight - weight of edge
-	 */
-	@Override
-	public int getWeight(){
-		return edgeWeight;
-	}
+  /**
+   * Getter for edgeWeight
+   *
+   * @return edgeWeight - weight of edge
+   */
+  @Override
+  public int getWeight(){
+    return edgeWeight;
+  }
   @Override
   public boolean equals(Object o) {
     if (o == null)

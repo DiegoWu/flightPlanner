@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
  * nodes. This class makes use of Dijkstra's shortest path algorithm.
  */
 public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<NodeType, EdgeType>
-    implements GraphADT<NodeType, EdgeType> {
+  implements GraphADT<NodeType, EdgeType> {
 
   /**
    * While searching for the shortest path between two nodes, a SearchNode contains data about one
@@ -72,56 +72,56 @@ public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<
   protected SearchNode computeShortestPath(NodeType start, NodeType end)
       throws NoSuchElementException {
 
-    if (!this.containsNode(start) || !this.containsNode(end))
-      throw new NoSuchElementException("the starting node or the ending node does not exist");
+      if (!this.containsNode(start) || !this.containsNode(end))
+        throw new NoSuchElementException("the starting node or the ending node does not exist");
 
-    PriorityQueue<SearchNode> pq = new PriorityQueue<SearchNode>();
+      PriorityQueue<SearchNode> pq = new PriorityQueue<SearchNode>();
 
-    Node s = this.nodes.get(start); // starting node
-    Node e = this.nodes.get(end); // ending node
-    SearchNode ss = new SearchNode(s, 0, null); // starting node searchnode version
+      Node s = this.nodes.get(start); // starting node
+      Node e = this.nodes.get(end); // ending node
+      SearchNode ss = new SearchNode(s, 0, null); // starting node searchnode version
 
-    Hashtable<Node, SearchNode> visited = new Hashtable<Node, SearchNode>();
-    Hashtable<Node, SearchNode> unvisited = new Hashtable<Node, SearchNode>();
+      Hashtable<Node, SearchNode> visited = new Hashtable<Node, SearchNode>();
+      Hashtable<Node, SearchNode> unvisited = new Hashtable<Node, SearchNode>();
 
-    // initialize the unvisited nodes
-    for (Node node : this.nodes.values()) {
-      SearchNode temp = new SearchNode(node, Integer.MAX_VALUE, null);
-      unvisited.put(node, temp);
-    }
+      // initialize the unvisited nodes
+      for (Node node : this.nodes.values()) {
+        SearchNode temp = new SearchNode(node, Integer.MAX_VALUE, null);
+        unvisited.put(node, temp);
+      }
 
-    pq.add(ss); // adding the starting node to the priority queue
+      pq.add(ss); // adding the starting node to the priority queue
 
-    while (!pq.isEmpty()) {
-      SearchNode st = pq.peek(); // start node
-      pq.remove();
+      while (!pq.isEmpty()) {
+        SearchNode st = pq.peek(); // start node
+        pq.remove();
 
-      if (visited.get(st.node) != null) // checking whether the node is visited
-        continue;
-
-      for (Edge edge : st.node.edgesLeaving) {
-        SearchNode after;
-        if (visited.get(edge.successor) != null) // checking whether the node is visited
+        if (visited.get(st.node) != null) // checking whether the node is visited
           continue;
 
-        after = unvisited.get(edge.successor); // the neighbor node for start node
-        if (after.cost > st.cost + edge.data.intValue()) { // checking a shorter path between
-                                                              // starting node and current node
-          after.cost = st.cost + edge.data.intValue();
-          after.predecessor = st;
-          // updating the searchnode in unvisited hashtable
-          unvisited.remove(after.node);
-          unvisited.put(after.node, after);
-          pq.add(after);
+        for (Edge edge : st.node.edgesLeaving) {
+          SearchNode after;
+          if (visited.get(edge.successor) != null) // checking whether the node is visited
+            continue;
+
+          after = unvisited.get(edge.successor); // the neighbor node for start node
+          if (after.cost > st.cost + edge.data.intValue()) { // checking a shorter path between
+                                                             // starting node and current node
+            after.cost = st.cost + edge.data.intValue();
+            after.predecessor = st;
+            // updating the searchnode in unvisited hashtable
+            unvisited.remove(after.node);
+            unvisited.put(after.node, after);
+            pq.add(after);
+          }
         }
+        visited.put(st.node, st);
       }
-      visited.put(st.node, st);
-    }
 
-    if (visited.get(e) == null)
-      throw new NoSuchElementException("the path does not exist");
+      if (visited.get(e) == null)
+        throw new NoSuchElementException("the path does not exist");
 
-    return visited.get(e);
+      return visited.get(e);
   }
 
   /**
@@ -139,17 +139,17 @@ public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<
    */
   public List<NodeType> shortestPathData(NodeType start, NodeType end)
       throws NoSuchElementException {
-    SearchNode e = this.computeShortestPath(start, end);
+      SearchNode e = this.computeShortestPath(start, end);
 
-    List<NodeType> temp = new ArrayList<NodeType>();
+      List<NodeType> temp = new ArrayList<NodeType>();
 
-    while (e != null) {
-      temp.add(e.node.data); // reversely adding the nodes to temp array
-      e = e.predecessor;
+      while (e != null) {
+        temp.add(e.node.data); // reversely adding the nodes to temp array
+        e = e.predecessor;
 
-    }
-    Collections.reverse(temp);
-    return temp;
+      }
+      Collections.reverse(temp);
+      return temp;
   }
 
   /**
@@ -168,4 +168,4 @@ public class DijkstraGraph<NodeType, EdgeType extends Number> extends BaseGraph<
     return cost;
   }
 
- }
+}
