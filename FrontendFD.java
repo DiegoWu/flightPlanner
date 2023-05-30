@@ -5,7 +5,7 @@
 // Lecture #: 4 3:30-4:20
 // Team: DX red
 // Notes to Grader: Orz
-
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.Group;
 import javafx.scene.control.MenuButton;
@@ -37,18 +37,43 @@ import javafx.scene.layout.StackPane;
 public class FrontendFD extends Application implements FrontendInterface {
 
 
+  private String mode= "dark mode";
   // private helper method for print
   private static <T> void print(T x) {
     System.out.println(x);
   }
+  private static final String LIGHT_MODE = "light";
+  private static final String DARK_MODE = "dark";
+  private BorderPane borderPane = new BorderPane();
 
+  private String currentMode = LIGHT_MODE;
   private FlightPathBackendInterface backend=  new FlightPathBackendBD();
-
+  private ToggleButton darkModeButton = new ToggleButton(mode);
   private AirportInterface st;
 
   private AirportInterface end;
 
+  private void setDarkMode() {
+    if (!currentMode.equals(DARK_MODE)) {
+      currentMode = DARK_MODE;
+      mode= "light mode";
+      darkModeButton.setText(mode);
+      Scene scene = borderPane.getScene();
+      scene.getStylesheets().clear();
+      scene.getStylesheets().add(getClass().getResource("style-dark.css").toExternalForm());
+    }
+  }
 
+  private void setLightMode() {
+    if (!currentMode.equals(LIGHT_MODE)) {
+      currentMode = LIGHT_MODE;
+      mode= "dark mode";
+      darkModeButton.setText(mode);
+      Scene scene = borderPane.getScene();
+      scene.getStylesheets().clear();
+      scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+    }
+  }
   public Text displayAllShortestPaths() {
 
     StringBuilder sb = new StringBuilder();
@@ -116,7 +141,7 @@ public class FrontendFD extends Application implements FrontendInterface {
     // Retrieve the dimensions of the screen
     javafx.geometry.Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-    
+
     // Calculate the size of the window as 50% of the screen size
     double windowWidth = screenBounds.getWidth()*0.5;
     double windowHeight = screenBounds.getHeight() * 0.5;
@@ -232,11 +257,20 @@ public class FrontendFD extends Application implements FrontendInterface {
     av.setFill(Color.BROWN); 
     StackPane buttonPane = new StackPane();
 
+    darkModeButton.setOnAction(e -> {
+      if (darkModeButton.isSelected()) {
+        setDarkMode();
+      } else {
+        setLightMode();
+      }
+    });
+
     HBox hbox = new HBox(start, end);
+    HBox darkModeButtonPane = new HBox(darkModeButton);
+    HBox topContainer = new HBox(hbox, darkModeButtonPane);
+    topContainer.setSpacing(10);
 
-
-    buttonPane.getChildren().addAll(hbox);
-    BorderPane borderPane = new BorderPane();
+    //buttonPane.getChildren().addAll(hbox);
     StackPane pane = new StackPane(path); 
     StackPane pane1 = new StackPane(time);
     StackPane pane2 = new StackPane(av);
@@ -246,7 +280,7 @@ public class FrontendFD extends Application implements FrontendInterface {
     pane1.setPadding(new Insets(35, 20, 20, 30)); // sets 10px top, 20px right, 30px bottom, 40px left insets
     pane2.setPadding(new Insets(40, 20, 20, 30)); // sets 10px top, 20px right, 30px bottom, 40px left insets
 
-    borderPane.setTop(buttonPane);    
+    borderPane.setTop(topContainer);    
     borderPane.setCenter(vbox1);
     borderPane.setBottom(vbox);
     Scene scene = new Scene(borderPane, windowWidth, windowHeight, Color.BEIGE);
