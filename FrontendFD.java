@@ -116,7 +116,7 @@ public class FrontendFD extends Application implements FrontendInterface {
     // Retrieve the dimensions of the screen
     javafx.geometry.Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-
+    
     // Calculate the size of the window as 50% of the screen size
     double windowWidth = screenBounds.getWidth()*0.5;
     double windowHeight = screenBounds.getHeight() * 0.5;
@@ -251,7 +251,7 @@ public class FrontendFD extends Application implements FrontendInterface {
     borderPane.setBottom(vbox);
     Scene scene = new Scene(borderPane, windowWidth, windowHeight, Color.BEIGE);
     stage.setTitle("FlightPathDemo");
-
+    scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
     stage.setScene(scene);
 
     stage.show();
