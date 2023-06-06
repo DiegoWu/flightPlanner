@@ -1,0 +1,51 @@
+/* CSS styles */
+
+/* Styling the MenuButton */
+#start, #end {
+  -fx-background-color: #ECECEC;
+  -fx-text-fill: #333333;
+  -fx-font-size: 14px;
+}
+
+/* Styling the MenuItem */
+.menu-item {
+  -fx-background-color: #ECECEC;
+  -fx-text-fill: #333333;
+  -fx-font-size: 14px;
+}
+
+/* Styling the Text */
+#path, #time, #av {
+  -fx-font-family: "Verdana";
+  -fx-font-weight: normal;
+  -fx-font-size: 14px;
+  -fx-fill: #A52A2A;
+}
+
+/* Styling the Button */
+#exit {
+  -fx-background-color: #A52A2A;
+  -fx-text-fill: #FFFFFF;
+  -fx-font-size: 14px;
+}
+
+/* Styling the BorderPane */
+#pane {
+  -fx-background-color: #F5F5F5;
+}
+
+/* Styling the StackPane */
+.stack-pane {
+  -fx-padding: 20px;
+}
+
+/* Styling the VBox */
+.vbox {
+  -fx-spacing: 10px;
+}
+
+/* Styling the Scene */
+.scene {
+  -fx-background-color: #F5F5DC;
+}
+

@@ -1,0 +1,68 @@
+/* CSS styles for dark mode */
+
+/* Styling the MenuButton */
+#start, #end {
+  -fx-background-color: #ECECEC;
+  -fx-text-fill: #333333;
+}
+
+/* Styling the MenuItem */
+.menu-item {
+  -fx-background-color: #ECECEC;
+  -fx-text-fill: #333333;
+}
+
+/* Styling the Text */
+#path, #time, #av {
+  -fx-font-family: "Verdana";
+  -fx-font-weight: normal;
+  -fx-font-size: 14px;
+  -fx-fill: #ECECEC;
+}
+
+/* Styling the Button */
+#exit {
+  -fx-background-color: #ECECEC;
+  -fx-text-fill: #333333;
+}
+
+/* Styling the BorderPane */
+#pane {
+  -fx-background-color: #222222;
+}
+
+/* Styling the StackPane */
+.stack-pane {
+  -fx-padding: 20px;
+}
+
+/* Styling the VBox */
+.vbox {
+  -fx-spacing: 10px;
+}
+
+/* Styling the Scene */
+.scene {
+  -fx-background-color: #333333;
+}
+
+/* Styling the Button */
+#darkModeButton {
+  -fx-background-color: #A52A2A;
+  -fx-background-image: url("dark_mode_icon.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-background-size: 16px 16px;
+  -fx-text-fill: #FFFFFF;
+  -fx-font-size: 0;
+  -fx-padding: 8px;
+  -fx-border-radius: 50%;
+  -fx-border-color: transparent;
+  -fx-cursor: hand;
+}
+
+/* Styling the Button on hover */
+#darkModeButton:hover {
+  -fx-background-color: #8C1C1C;
+}
+
