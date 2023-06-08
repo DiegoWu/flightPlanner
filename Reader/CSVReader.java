@@ -15,9 +15,9 @@ public class CSVReader {
     System.out.print(x);
   }
 
-  ArrayList<AirportInterface> airportList = new ArrayList<AirportInterface>();
+  private ArrayList<AirportInterface> airportList = new ArrayList<AirportInterface>();
 
-  ArrayList<EdgeInterface> edgeList = new ArrayList<EdgeInterface>();
+  private ArrayList<EdgeInterface> edgeList = new ArrayList<EdgeInterface>();
 
 
   public List<AirportInterface> getAirportList() {
