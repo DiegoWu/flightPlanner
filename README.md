@@ -1,17 +1,1 @@
-# the US airports flightPlanner 
-
-## UW-Madison CS 400 project 3
-
-## group project with 3 team members
-
-## Frontend
-
-### JavaFX, CSS
-
-## Backend
-
-### dijkstra algorithm
-
-## data 
-
-### Kaggle
+### make run to start this application locally
