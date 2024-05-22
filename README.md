@@ -19,7 +19,7 @@ US Airports FlightPlanner is a project developed for UW-Madison CS 400, Project 
 
 - **Flight Planning**: Plan the shortest route between two US airports.
 - **Interactive UI**: User-friendly interface built with JavaFX.
-- **Real-world Data**: Utilizes real-world airport data from Kaggle.
+- **Real-world Data**: Utilizes real US airport data from Kaggle.
 
 ## Technologies
 
